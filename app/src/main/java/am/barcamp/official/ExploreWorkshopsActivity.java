@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import am.barcamp.official.adapter.WorkshopAdapter;
 import am.barcamp.official.dto.ScheduleItem;
 import am.barcamp.official.networking.NetworkClient;
 import am.barcamp.official.networking.ScheduleService;
@@ -25,11 +26,6 @@ import retrofit2.Retrofit;
 
 public class ExploreWorkshopsActivity extends AppCompatActivity {
 
-    private RecyclerView recyclerView;
-    private RecyclerView.Adapter mAdapter;
-    private RecyclerView.LayoutManager layoutManager;
-
-
     private List<ScheduleItem> result = new ArrayList<>();
 
     @Override
@@ -37,12 +33,8 @@ public class ExploreWorkshopsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_browse_workshops);
 
-        recyclerView = findViewById(R.id.ourview);
-        recyclerView.setHasFixedSize(true);
-        layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
-
-        //RecyclerView.Adapter
+        RecyclerView rvWorkshop = findViewById(R.id.ourview);
+        rvWorkshop.setLayoutManager(new LinearLayoutManager(this));
 
 
         Retrofit retrofit = NetworkClient.getRetrofitClient();
@@ -58,7 +50,8 @@ public class ExploreWorkshopsActivity extends AppCompatActivity {
                 if (response.body() != null) {
                     List<ScheduleItem> scheduleResponse = response.body();
                     result.addAll(scheduleResponse);
-                    result.forEach(System.out::println);
+                    WorkshopAdapter adapter = new WorkshopAdapter(result);
+                    rvWorkshop.setAdapter(adapter);
                 }
             }
 
