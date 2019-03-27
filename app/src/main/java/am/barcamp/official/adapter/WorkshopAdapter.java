@@ -15,16 +15,16 @@ import am.barcamp.official.dto.ScheduleItem;
 
 public class WorkshopAdapter extends RecyclerView.Adapter<WorkshopAdapter.ViewHolder> {
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+     class ViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView nameTextView;
-        public Button saveButton;
+        private TextView nameTextView;
+        private Button saveButton;
 
-        public ViewHolder(View itemView) {
+         ViewHolder(View itemView) {
             super(itemView);
             nameTextView = itemView.findViewById(R.id.workshop_name);
             saveButton = itemView.findViewById(R.id.save_button);
-        }
+         }
     }
 
     private List<ScheduleItem> workshops;
